@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { routesInfo } from './route'
 
 const drawer = ref<boolean>(false);
+
+const router = useRouter();
+const route = useRoute();
+const currentRoute = computed<string>(() => route.fullPath);
+const title = computed<string>(() => {
+  return routesInfo.find((info) => info.path === route.path)?.title ?? '';
+})
+
+function handleDrawerItemClick(path: string): void {
+  drawer.value = false
+  router.push(path);
+}
 </script>
 
 <template>
   <el-container class="container">
     <el-header class="header">
-      <div>
+      <div class="header-left">
         <el-icon class="icon" size="30px" @click="drawer = !drawer">
           <i-ion-menu-sharp />
         </el-icon>
+        <span class="title">{{ title }}</span>
       </div>
       <div>
         <a
@@ -33,20 +48,18 @@ const drawer = ref<boolean>(false);
       :show-close="false"
       :with-header="false"
     >
+      <div v-for="item of routesInfo"
+        :key="item.path"
+        @click="handleDrawerItemClick(item.path)"
+        :class="['drawer-item', item.path === currentRoute ? 'active' : '']"
+      >
+        {{ item.title }}
+      </div>
     </el-drawer>
   </el-container>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #0b0b0c;
-  height: 100vh;
-}
-
+<style scoped lang="scss">
 .container {
   height: 100%;
 }
@@ -58,6 +71,16 @@ const drawer = ref<boolean>(false);
   justify-content: space-between;
 }
 
+.header-left {
+  display: flex;
+}
+
+.title {
+  padding-left: 8px;
+  font-size: 24px;
+  line-height: 30px;
+}
+
 .icon {
   cursor: pointer;
 }
@@ -66,7 +89,18 @@ const drawer = ref<boolean>(false);
   color: inherit;
 }
 
-body {
-  margin: 0;
+.drawer-item {
+  height: 30px;
+  line-height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--el-color-primary-light-8);
+  }
+
+  &.active {
+    background-color: var(--el-color-primary-light-4);
+  }
 }
 </style>
