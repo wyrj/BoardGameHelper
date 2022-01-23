@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n';
 import { routesInfo } from './route'
 
 const drawer = ref<boolean>(false);
 
 const router = useRouter();
 const route = useRoute();
+const { t } = useI18n();
 const currentRoute = computed<string>(() => route.fullPath);
 const title = computed<string>(() => {
-  return routesInfo.find((info) => info.path === route.path)?.title ?? '';
+  const page = routesInfo.find((info) => info.path === route.path)?.page ?? '';
+  return page ? t(`${page}.title`) : '';
 })
 
 function handleDrawerItemClick(path: string): void {
@@ -53,7 +56,7 @@ function handleDrawerItemClick(path: string): void {
         @click="handleDrawerItemClick(item.path)"
         :class="['drawer-item', item.path === currentRoute ? 'active' : '']"
       >
-        {{ item.title }}
+        {{ t(`${item.page}.title`) }}
       </div>
     </el-drawer>
   </el-container>

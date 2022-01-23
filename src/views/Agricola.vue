@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n();
 type CountInfo = {
   title: string,
   count: number,
@@ -13,41 +15,42 @@ type DynamicCountInfo = CountInfo & {
 type StaticCountInfo = CountInfo & {
   multiplier: number,
 };
-enum HOUSE_TYPE {
+enum ROOM_TYPE {
   WOOD = 'wood',
   CLAY = 'clay',
   STONE = 'stone',
 }
 
-const houseOptions = Object.values(HOUSE_TYPE);
-const houseValue = ref<HOUSE_TYPE>(houseOptions[0])
-watch(houseValue, (value) => {
+const roomOptions = Object.values(ROOM_TYPE);
+const roomValue = ref<ROOM_TYPE>(roomOptions[0])
+watch(roomValue, (value) => {
   let multiplier = 0;
-  if (value === HOUSE_TYPE.CLAY) {
+  if (value === ROOM_TYPE.CLAY) {
     multiplier = 1;
-  } else if (value === HOUSE_TYPE.STONE) {
+  } else if (value === ROOM_TYPE.STONE) {
     multiplier = 2;
   }
   staticCount[0].multiplier = multiplier;
 });
 
 const dynamicCount = reactive<DynamicCountInfo[]>([
-  { count: 0, base: 1, start: 4, step: 2, title: 'Grain' },
-  { count: 0, base: 1, start: 2, step: 1, title: 'Vegetable' },
-  { count: 0, base: 1, start: 4, step: 2, title: 'Sheet' },
-  { count: 0, base: 1, start: 3, step: 2, title: 'Wild Boar' },
-  { count: 0, base: 1, start: 2, step: 2, title: 'Cattle' },
-  { count: 0, base: 2, start: 3, step: 1, title: 'Farm' },
-  { count: 0, base: 1, start: 2, step: 1, title: 'Fence' },
-  { count: 0, base: 1, start: 2, step: 1, title: 'castle' },
+  { count: 0, base: 1, start: 4, step: 2, title: t('agricola.grain') },
+  { count: 0, base: 1, start: 2, step: 1, title: t('agricola.vegetable') },
+  { count: 0, base: 1, start: 4, step: 2, title: t('agricola.sheep') },
+  { count: 0, base: 1, start: 3, step: 2, title: t('agricola.wild_boar') },
+  { count: 0, base: 1, start: 2, step: 2, title: t('agricola.cattle') },
+  { count: 0, base: 2, start: 3, step: 1, title: t('agricola.field') },
+  { count: 0, base: 1, start: 2, step: 1, title: t('agricola.pasture') },
+  { count: 0, base: 1, start: 2, step: 1, title: t('agricola.stable') },
 ]);
 
 const staticCount = reactive<StaticCountInfo[]>([
-  { count: 2, multiplier: 0, title: 'house' },
-  { count: 2, multiplier: 3, title: 'family' },
-  { count: 0, multiplier: -1, title: 'Unocuupied' },
-  { count: 0, multiplier: 1, title: 'other' },
-  { count: 0, multiplier: -3, title: 'Beg' },
+  { count: 2, multiplier: 0, title: t('agricola.room') },
+  { count: 2, multiplier: 3, title: t('agricola.family') },
+  { count: 0, multiplier: -1, title: t('agricola.unused') },
+  { count: 0, multiplier: 1, title: t('agricola.card') },
+  { count: 0, multiplier: 1, title: t('agricola.bonus') },
+  { count: 0, multiplier: -3, title: t('agricola.beg') },
 ]);
 
 const score = computed<number>(() => {
@@ -73,7 +76,7 @@ const score = computed<number>(() => {
 <template>
   <div>
     <div class="score">
-      {{ `Score: ${score}` }}
+      {{ `${t('common.score')}: ${score}` }}
     </div>
     <div class="counter-wrapper">
       <template
@@ -89,17 +92,16 @@ const score = computed<number>(() => {
           class="input-number"
         />
       </template>
-      <div class="title">House Type</div>
+      <div class="title">{{ t('agricola.room_type') }}</div>
       <el-select
-        v-model="houseValue"
+        v-model="roomValue"
       >
         <el-option
-          v-for="item in houseOptions"
+          v-for="item in roomOptions"
           :key="item"
-          :lable="item"
+          :label="t(`agricola.${item}`)"
           :value="item"
         >
-          {{ item }}
         </el-option>
       </el-select>
     </div>

@@ -7,12 +7,12 @@ import type { ComponentOptions } from 'vue'
 type HelperInfo = {
   path: string,
   component: ComponentOptions,
-  title: string,
+  page: string,
 }
 
 export const routesInfo: HelperInfo[] = [
-  { path: '/', title: 'Home', component: DicePage },
-  { path: '/agricola', title: 'Agricola', component: AgricolaPage },
+  { path: '/', page: 'home', component: DicePage },
+  { path: '/agricola', page: 'agricola', component: AgricolaPage },
 ]
 
 const router = createRouter({
