@@ -25,5 +25,8 @@ export default {
     wood: '木屋',
     clay: '磚屋',
     stone: '石屋',
-  }
+  },
+  smallworld: {
+    title: '小世界',
+  },
 }
