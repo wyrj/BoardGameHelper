@@ -118,6 +118,7 @@ const score = computed<number>(() => {
   display: grid;
   align-items: center;
   width: 400px;
+  max-width: 100%;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   margin: 8px auto 0;

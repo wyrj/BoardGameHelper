@@ -48,6 +48,7 @@ function handleDrawerItemClick(path: string): void {
     <el-drawer
       v-model="drawer"
       direction="ltr"
+      custom-class="drawer"
       :show-close="false"
       :with-header="false"
     >
@@ -65,6 +66,10 @@ function handleDrawerItemClick(path: string): void {
 <style scoped lang="scss">
 .container {
   height: 100%;
+
+  :deep .drawer {
+    min-width: 300px;
+  }
 }
 
 .header {
