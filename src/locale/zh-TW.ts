@@ -29,4 +29,16 @@ export default {
   smallworld: {
     title: '小世界',
   },
+  timer: {
+    title: '計時器',
+    category: {
+      normal: '一般',
+      repeat: '重複',
+      duel: '對決',
+    },
+    start: '開始',
+    pause: '暫停',
+    continue: '繼續',
+    stop: '停止',
+  },
 }

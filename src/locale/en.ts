@@ -374,5 +374,17 @@ export default {
         description: `Each time another player chooses a new race, you earn (from the bank) as many Victory coins as the number of combinations the player skips down to reach their choice. When your Racketeering Race fi nally goes In Decline, your next race is free no matter where it is in the column.`,
       },
     },
-  }
+  },
+  timer: {
+    title: 'Timer',
+    category: {
+      normal: 'Normal',
+      repeat: 'Repeat',
+      duel: 'Duel',
+    },
+    start: 'Start',
+    pause: 'Pause',
+    continue: 'Continue',
+    stop: 'Stop',
+  },
 }
