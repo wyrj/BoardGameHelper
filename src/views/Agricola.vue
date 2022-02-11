@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, reactive, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 type CountInfo = {
-  title: string,
-  count: number,
+  title: string;
+  count: number;
 };
 type DynamicCountInfo = CountInfo & {
-  base: number,
-  start: number,
-  step: number,
+  base: number;
+  start: number;
+  step: number;
 };
 type StaticCountInfo = CountInfo & {
-  multiplier: number,
+  multiplier: number;
 };
 enum ROOM_TYPE {
   WOOD = 'wood',
@@ -22,7 +22,7 @@ enum ROOM_TYPE {
 }
 
 const roomOptions = Object.values(ROOM_TYPE);
-const roomValue = ref<ROOM_TYPE>(roomOptions[0])
+const roomValue = ref<ROOM_TYPE>(roomOptions[0]);
 watch(roomValue, (value) => {
   let multiplier = 0;
   if (value === ROOM_TYPE.CLAY) {
@@ -54,7 +54,7 @@ const staticCount = reactive<StaticCountInfo[]>([
 ]);
 
 const score = computed<number>(() => {
-  let total = 0
+  let total = 0;
   for (const { count, start, step } of dynamicCount) {
     if (count === 0) {
       total -= 1;
@@ -68,9 +68,8 @@ const score = computed<number>(() => {
     total += count * multiplier;
   }
 
-  return total
+  return total;
 });
-
 </script>
 
 <template>
@@ -79,30 +78,13 @@ const score = computed<number>(() => {
       {{ `${t('common.score')}: ${score}` }}
     </div>
     <div class="counter-wrapper">
-      <template
-        v-for="item in [...dynamicCount, ...staticCount]"
-        :key="item.title"
-      >
+      <template v-for="item in [...dynamicCount, ...staticCount]" :key="item.title">
         <div class="title">{{ item.title }}</div>
-        <el-input-number
-          v-model="item.count"
-          :min="0"
-          :step="1"
-          step-strictly
-          class="input-number"
-        />
+        <el-input-number v-model="item.count" :min="0" :step="1" step-strictly class="input-number" />
       </template>
       <div class="title">{{ t('agricola.room_type') }}</div>
-      <el-select
-        v-model="roomValue"
-      >
-        <el-option
-          v-for="item in roomOptions"
-          :key="item"
-          :label="t(`agricola.${item}`)"
-          :value="item"
-        >
-        </el-option>
+      <el-select v-model="roomValue">
+        <el-option v-for="item in roomOptions" :key="item" :label="t(`agricola.${item}`)" :value="item"> </el-option>
       </el-select>
     </div>
   </div>

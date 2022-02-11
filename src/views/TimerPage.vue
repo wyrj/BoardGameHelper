@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import Timer from '../components/Timer.vue';
 import NumberSelect from '../components/NumberSelect.vue';
 
-const { t } = useI18n()
+const { t } = useI18n();
 
 enum TIMER_CATEGORY {
   NORMAL = 'normal',
@@ -18,18 +18,18 @@ enum TIMER_STATE {
 }
 
 const running = ref<TIMER_STATE>(TIMER_STATE.STOP);
-const timerCategory = ref<TIMER_CATEGORY>(TIMER_CATEGORY.DUEL)
-const timerOptions = Object.values(TIMER_CATEGORY)
+const timerCategory = ref<TIMER_CATEGORY>(TIMER_CATEGORY.DUEL);
+const timerOptions = Object.values(TIMER_CATEGORY);
 
 const timer1 = ref<typeof Timer | null>(null);
 const timer2 = ref<typeof Timer | null>(null);
 const timers = [timer1, timer2];
 const activeTimerIndex = ref<number>(0);
-const minuteValue = ref<number>(1)
-const secondValue = ref<number>(30)
+const minuteValue = ref<number>(1);
+const secondValue = ref<number>(30);
 const totalTime = computed<number>(() => {
   return (minuteValue.value * 60 + secondValue.value) * 1000;
-})
+});
 
 function handleStart(): void {
   running.value = TIMER_STATE.RUNNING;
@@ -59,7 +59,7 @@ function handleTimerClick(idx: number): void {
     idx !== activeTimerIndex.value ||
     timerCategory.value === TIMER_CATEGORY.NORMAL
   ) {
-    return
+    return;
   }
   if (timerCategory.value === TIMER_CATEGORY.REPEAT) {
     handleStop();
@@ -74,36 +74,17 @@ function handleTimerClick(idx: number): void {
 function handleTimeEnd(): void {
   handleStop();
 }
-
 </script>
 
 <template>
   <div class="root">
-    <el-select
-      v-model="timerCategory"
-      :disabled="running !== TIMER_STATE.STOP"
-    >
-      <el-option
-        v-for="item in timerOptions"
-        :key="item"
-        :label="t(`timer.category.${item}`)"
-        :value="item"
-      >
+    <el-select v-model="timerCategory" :disabled="running !== TIMER_STATE.STOP">
+      <el-option v-for="item in timerOptions" :key="item" :label="t(`timer.category.${item}`)" :value="item">
       </el-option>
     </el-select>
     <div class="time-select-wrapper">
-      <number-select
-        v-model="minuteValue"
-        :max="180"
-        :width="100"
-        :disabled="running !== TIMER_STATE.STOP"
-      />
-      <number-select
-        v-model="secondValue"
-        :max="60"
-        :width="100"
-        :disabled="running !== TIMER_STATE.STOP"
-      />
+      <number-select v-model="minuteValue" :max="180" :width="100" :disabled="running !== TIMER_STATE.STOP" />
+      <number-select v-model="secondValue" :max="60" :width="100" :disabled="running !== TIMER_STATE.STOP" />
     </div>
     <div class="timer-container">
       <div class="timer">
@@ -126,22 +107,13 @@ function handleTimeEnd(): void {
       </div>
     </div>
     <div>
-      <el-button
-        :disabled="running !== TIMER_STATE.STOP"
-        @click="handleStart"
-      >
+      <el-button :disabled="running !== TIMER_STATE.STOP" @click="handleStart">
         {{ t('timer.start') }}
       </el-button>
-      <el-button
-        :disabled="running === TIMER_STATE.STOP"
-        @click="handlePause"
-      >
+      <el-button :disabled="running === TIMER_STATE.STOP" @click="handlePause">
         {{ running === TIMER_STATE.PAUSE ? t('timer.continue') : t('timer.pause') }}
       </el-button>
-      <el-button
-        :disabled="running === TIMER_STATE.STOP"
-        @click="handleStop"
-      >
+      <el-button :disabled="running === TIMER_STATE.STOP" @click="handleStop">
         {{ t('timer.stop') }}
       </el-button>
     </div>

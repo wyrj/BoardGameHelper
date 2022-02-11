@@ -11,8 +11,7 @@ const { t } = useI18n();
 const searchingString = ref<string>('');
 function filterFn(category: string, s: string): boolean {
   return (
-    s.indexOf(searchingString.value) >= 0 ||
-    t(`smallworld.${category}.${s}.name`).indexOf(searchingString.value) >= 0
+    s.indexOf(searchingString.value) >= 0 || t(`smallworld.${category}.${s}.name`).indexOf(searchingString.value) >= 0
   );
 }
 const filteredRace = computed<string[]>(() => {
@@ -20,7 +19,7 @@ const filteredRace = computed<string[]>(() => {
 });
 const filteredAbility = computed<string[]>(() => {
   return abilityList.filter((ability) => filterFn('ability', ability));
-})
+});
 </script>
 
 <template>
@@ -42,9 +41,7 @@ const filteredAbility = computed<string[]>(() => {
           class="card"
         >
           <el-collapse class="collapse">
-            <el-collapse-item
-              :title="t(`smallworld.race.${race}.name`)"
-            >
+            <el-collapse-item :title="t(`smallworld.race.${race}.name`)">
               {{ t(`smallworld.race.${race}.description`) }}
             </el-collapse-item>
           </el-collapse>
@@ -59,9 +56,7 @@ const filteredAbility = computed<string[]>(() => {
           class="card"
         >
           <el-collapse class="collapse">
-            <el-collapse-item
-              :title="t(`smallworld.ability.${ability}.name`)"
-            >
+            <el-collapse-item :title="t(`smallworld.ability.${ability}.name`)">
               {{ t(`smallworld.ability.${ability}.description`) }}
             </el-collapse-item>
           </el-collapse>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, onBeforeUnmount } from 'vue'
+import { computed, ref, onBeforeUnmount } from 'vue';
 
 const props = defineProps<{
   totalTime: number;
@@ -21,16 +21,16 @@ const cls = computed<string[]>(() => {
     c.push('end');
   }
   return c;
-})
-let lastTime = new Date()
+});
+let lastTime = new Date();
 
-const remainDuration = ref<number>(props.totalTime)
+const remainDuration = ref<number>(props.totalTime);
 const displayTimer = computed(() => {
   const ms = remainDuration.value % 1000;
   const sec = Math.floor(remainDuration.value / 1000) % 60;
   const min = Math.floor(remainDuration.value / 60000);
   return `${min}:${sec}.${ms.toString().padStart(3, '0')}`;
-})
+});
 
 function stopTimer(): void {
   if (!running.value) {
@@ -44,7 +44,7 @@ function continueTimer(): void {
   lastTime = new Date();
   running.value = setInterval(() => {
     const time = new Date();
-    const delta = time.getTime() - lastTime.getTime()
+    const delta = time.getTime() - lastTime.getTime();
     remainDuration.value = Math.max(0, remainDuration.value - delta);
     lastTime = time;
     if (remainDuration.value === 0) {
@@ -70,8 +70,7 @@ defineExpose({
   stopTimer,
   resetTimer,
   continueTimer,
-})
-
+});
 </script>
 
 <template>

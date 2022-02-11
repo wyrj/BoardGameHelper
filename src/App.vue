@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { routesInfo } from './route'
+import { routesInfo } from './route';
 
 const drawer = ref<boolean>(false);
 
@@ -13,10 +13,10 @@ const currentRoute = computed<string>(() => route.fullPath);
 const title = computed<string>(() => {
   const page = routesInfo.find((info) => info.path === route.path)?.page ?? '';
   return page ? t(`${page}.title`) : '';
-})
+});
 
 function handleDrawerItemClick(path: string): void {
-  drawer.value = false
+  drawer.value = false;
   router.push(path);
 }
 </script>
@@ -31,11 +31,7 @@ function handleDrawerItemClick(path: string): void {
         <span class="title">{{ title }}</span>
       </div>
       <div>
-        <a
-          class="icon-link"
-          href="https://github.com/wyrj/BoardGameHelper"
-          target="_blank"
-        >
+        <a class="icon-link" href="https://github.com/wyrj/BoardGameHelper" target="_blank">
           <el-icon class="icon" size="30px">
             <i-ion-logo-github />
           </el-icon>
@@ -45,14 +41,9 @@ function handleDrawerItemClick(path: string): void {
     <el-main>
       <router-view />
     </el-main>
-    <el-drawer
-      v-model="drawer"
-      direction="ltr"
-      custom-class="drawer"
-      :show-close="false"
-      :with-header="false"
-    >
-      <div v-for="item of routesInfo"
+    <el-drawer v-model="drawer" direction="ltr" custom-class="drawer" :show-close="false" :with-header="false">
+      <div
+        v-for="item of routesInfo"
         :key="item.path"
         @click="handleDrawerItemClick(item.path)"
         :class="['drawer-item', item.path === currentRoute ? 'active' : '']"

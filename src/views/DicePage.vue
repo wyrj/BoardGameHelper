@@ -7,12 +7,12 @@ interface RotateObject {
   z: number;
 }
 
-const rotate = reactive<RotateObject>({ x: 0, y: 0, z: 0 })
+const rotate = reactive<RotateObject>({ x: 0, y: 0, z: 0 });
 const throwing = ref<boolean>(false);
 
 const diceStyle = computed<string>(() => {
   return `transform: rotateY(${rotate.y}deg) rotateX(${rotate.x}deg) rotateZ(${rotate.z}deg);`;
-})
+});
 
 function randomDegree(): number {
   return Math.floor(Math.random() * 360);
@@ -42,14 +42,12 @@ async function throwDice(): Promise<void> {
   }
   throwing.value = true;
   const timer = setInterval(rotation, 10);
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   clearInterval(timer);
   rotate.x = findClosedAngle(rotate.x);
   rotate.z = findClosedAngle(rotate.z);
   throwing.value = false;
 }
-
-
 </script>
 
 <template>
@@ -101,7 +99,7 @@ async function throwDice(): Promise<void> {
 
 .dice-wrapper {
   transform-style: preserve-3d;
-  transition: transform, top, left .1s;
+  transition: transform, top, left 0.1s;
   position: absolute;
   top: calc(100% - 200px);
   left: 50%;
