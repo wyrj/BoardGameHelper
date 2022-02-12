@@ -36,9 +36,5 @@ export default {
       repeat: '重複',
       duel: '對決',
     },
-    start: '開始',
-    pause: '暫停',
-    continue: '繼續',
-    stop: '停止',
   },
 };

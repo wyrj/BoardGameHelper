@@ -382,9 +382,5 @@ export default {
       repeat: 'Repeat',
       duel: 'Duel',
     },
-    start: 'Start',
-    pause: 'Pause',
-    continue: 'Continue',
-    stop: 'Stop',
   },
 };

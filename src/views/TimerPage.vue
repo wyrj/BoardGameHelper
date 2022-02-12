@@ -32,6 +32,10 @@ const totalTime = computed<number>(() => {
 });
 
 function handleStart(): void {
+  if (running.value !== TIMER_STATE.STOP) {
+    handlePause();
+    return;
+  }
   running.value = TIMER_STATE.RUNNING;
   timer1.value?.startTimer();
   timer2.value?.resetTimer();
@@ -106,14 +110,16 @@ function handleTimeEnd(): void {
       </div>
     </div>
     <div>
-      <el-button :disabled="running !== TIMER_STATE.STOP" @click="handleStart">
-        {{ t('timer.start') }}
-      </el-button>
-      <el-button :disabled="running === TIMER_STATE.STOP" @click="handlePause">
-        {{ running === TIMER_STATE.PAUSE ? t('timer.continue') : t('timer.pause') }}
+      <el-button @click="handleStart">
+        <el-icon>
+          <i-ion-pause v-if="running !== TIMER_STATE.STOP" />
+          <i-ion-play v-else />
+        </el-icon>
       </el-button>
       <el-button :disabled="running === TIMER_STATE.STOP" @click="handleStop">
-        {{ t('timer.stop') }}
+        <el-icon>
+          <i-ion-stop />
+        </el-icon>
       </el-button>
     </div>
   </div>
