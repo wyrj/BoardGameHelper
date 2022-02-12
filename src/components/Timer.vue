@@ -90,6 +90,7 @@ defineExpose({
   border-radius: 50%;
   box-sizing: border-box;
   font-size: 24px;
+  font-family: Consolas;
   background-color: var(--el-color-primary-light-3);
 }
 
