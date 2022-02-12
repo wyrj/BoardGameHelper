@@ -116,7 +116,7 @@ function handleTimeEnd(): void {
     <div>
       <el-button @click="handleStart">
         <el-icon>
-          <i-ion-pause v-if="running !== TIMER_STATE.STOP" />
+          <i-ion-pause v-if="running === TIMER_STATE.RUNNING" />
           <i-ion-play v-else />
         </el-icon>
       </el-button>
