@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeUpdate, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Timer from '../components/Timer.vue';
 import NumberSelect from '../components/NumberSelect.vue';
@@ -20,16 +20,27 @@ enum TIMER_STATE {
 const running = ref<TIMER_STATE>(TIMER_STATE.STOP);
 const timerCategory = ref<TIMER_CATEGORY>(TIMER_CATEGORY.DUEL);
 const timerOptions = Object.values(TIMER_CATEGORY);
-
-const timer1 = ref<typeof Timer | null>(null);
-const timer2 = ref<typeof Timer | null>(null);
-const timers = [timer1, timer2];
 const activeTimerIndex = ref<number>(0);
 const minuteValue = ref<number>(1);
 const secondValue = ref<number>(30);
+let timers: Array<typeof Timer> = [];
+
+const timerCount = computed<number>(() => {
+  return timerCategory.value === TIMER_CATEGORY.DUEL ? 2 : 1;
+});
 const totalTime = computed<number>(() => {
   return (minuteValue.value * 60 + secondValue.value) * 1000;
 });
+
+onBeforeUpdate(() => {
+  timers = [];
+});
+
+function setTimerRef(el: unknown): void {
+  if (el) {
+    timers.push(el as typeof Timer);
+  }
+}
 
 function handleStart(): void {
   if (running.value !== TIMER_STATE.STOP) {
@@ -37,24 +48,24 @@ function handleStart(): void {
     return;
   }
   running.value = TIMER_STATE.RUNNING;
-  timer1.value?.startTimer();
-  timer2.value?.resetTimer();
+  timers[0]?.startTimer();
+  timers[1]?.resetTimer();
   activeTimerIndex.value = 0;
 }
 
 function handlePause(): void {
   if (running.value === TIMER_STATE.PAUSE) {
     running.value = TIMER_STATE.RUNNING;
-    timers[activeTimerIndex.value].value?.continueTimer();
+    timers[activeTimerIndex.value]?.continueTimer();
   } else if (running.value === TIMER_STATE.RUNNING) {
     running.value = TIMER_STATE.PAUSE;
-    timers[activeTimerIndex.value].value?.stopTimer();
+    timers[activeTimerIndex.value]?.stopTimer();
   }
 }
 
 function handleStop(): void {
   running.value = TIMER_STATE.STOP;
-  timers[activeTimerIndex.value].value?.stopTimer();
+  timers[activeTimerIndex.value]?.stopTimer();
 }
 
 function handleTimerClick(idx: number): void {
@@ -69,9 +80,9 @@ function handleTimerClick(idx: number): void {
     handleStop();
     handleStart();
   } else if (timerCategory.value === TIMER_CATEGORY.DUEL) {
-    timers[activeTimerIndex.value].value?.stopTimer();
+    timers[activeTimerIndex.value]?.stopTimer();
     activeTimerIndex.value = 1 - activeTimerIndex.value;
-    timers[activeTimerIndex.value].value?.continueTimer();
+    timers[activeTimerIndex.value]?.continueTimer();
   }
 }
 
@@ -91,22 +102,14 @@ function handleTimeEnd(): void {
     </div>
     <div class="timer-container">
       <timer
-        ref="timer1"
-        :disabled="activeTimerIndex !== 0"
+        v-for="idx in timerCount"
+        :key="idx"
+        :ref="setTimerRef"
+        :disabled="activeTimerIndex !== idx - 1"
         :editable="running === TIMER_STATE.STOP"
         :total-time="totalTime"
-        :show-name="timerCategory === TIMER_CATEGORY.DUEL"
-        @click="handleTimerClick(0)"
-        @time_end="handleTimeEnd"
-      />
-      <timer
-        v-if="timerCategory === TIMER_CATEGORY.DUEL"
-        ref="timer2"
-        :disabled="activeTimerIndex !== 1"
-        :editable="running === TIMER_STATE.STOP"
-        :total-time="totalTime"
-        :show-name="timerCategory === TIMER_CATEGORY.DUEL"
-        @click="handleTimerClick(1)"
+        :show-name="timerCount > 1"
+        @click="handleTimerClick(idx - 1)"
         @time_end="handleTimeEnd"
       />
     </div>
