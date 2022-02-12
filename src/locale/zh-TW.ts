@@ -41,4 +41,4 @@ export default {
     continue: '繼續',
     stop: '停止',
   },
-}
+};

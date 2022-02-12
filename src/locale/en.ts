@@ -56,7 +56,7 @@ export default {
       },
       humans: {
         name: 'HUMANS',
-        description: `Each Farmland Region your Humans occupy is worth 1 bonus Victory coin, at the end of your turn.`
+        description: `Each Farmland Region your Humans occupy is worth 1 bonus Victory coin, at the end of your turn.`,
       },
       orcs: {
         name: 'ORCS',
@@ -387,4 +387,4 @@ export default {
     continue: 'Continue',
     stop: 'Stop',
   },
-}
+};
