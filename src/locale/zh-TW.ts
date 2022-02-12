@@ -1,6 +1,7 @@
 export default {
   common: {
     score: '分數',
+    name: '名稱',
   },
   home: {
     title: 'Home',

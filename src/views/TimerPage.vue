@@ -90,24 +90,25 @@ function handleTimeEnd(): void {
       <number-select v-model="secondValue" :max="60" :width="100" :disabled="running !== TIMER_STATE.STOP" />
     </div>
     <div class="timer-container">
-      <div class="timer">
-        <timer
-          ref="timer1"
-          :disabled="activeTimerIndex !== 0"
-          :total-time="totalTime"
-          @click="handleTimerClick(0)"
-          @time_end="handleTimeEnd"
-        />
-      </div>
-      <div v-if="timerCategory === TIMER_CATEGORY.DUEL" class="timer">
-        <timer
-          ref="timer2"
-          :disabled="activeTimerIndex !== 1"
-          :total-time="totalTime"
-          @click="handleTimerClick(1)"
-          @time_end="handleTimeEnd"
-        />
-      </div>
+      <timer
+        ref="timer1"
+        :disabled="activeTimerIndex !== 0"
+        :editable="running === TIMER_STATE.STOP"
+        :total-time="totalTime"
+        :show-name="timerCategory === TIMER_CATEGORY.DUEL"
+        @click="handleTimerClick(0)"
+        @time_end="handleTimeEnd"
+      />
+      <timer
+        v-if="timerCategory === TIMER_CATEGORY.DUEL"
+        ref="timer2"
+        :disabled="activeTimerIndex !== 1"
+        :editable="running === TIMER_STATE.STOP"
+        :total-time="totalTime"
+        :show-name="timerCategory === TIMER_CATEGORY.DUEL"
+        @click="handleTimerClick(1)"
+        @time_end="handleTimeEnd"
+      />
     </div>
     <div>
       <el-button @click="handleStart">
@@ -140,12 +141,6 @@ function handleTimeEnd(): void {
 }
 .timer-container {
   @extend %flex-center;
-  gap: 8px;
-}
-
-.timer {
-  @extend %flex-center;
-  flex-direction: column;
   gap: 8px;
 }
 </style>

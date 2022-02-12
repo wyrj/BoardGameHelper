@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { computed, ref, onBeforeUnmount } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const props = defineProps<{
   totalTime: number;
+  showName: boolean;
   disabled: boolean;
+  editable: boolean;
 }>();
 const emit = defineEmits<{
   (e: 'time_end'): void;
 }>();
 
 const running = ref<number | null>(null);
+const name = ref<string>('');
 const cls = computed<string[]>(() => {
   const c = ['timer'];
   if (props.disabled) {
@@ -74,12 +79,32 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="cls">
-    {{ displayTimer }}
+  <div class="root">
+    <el-input
+      v-if="props.showName"
+      v-model="name"
+      class="timer-input"
+      :placeholder="t('common.name')"
+      :disabled="!props.editable"
+    />
+    <div :class="cls">
+      {{ displayTimer }}
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+@use '../styles/utils.scss';
+.root {
+  @extend %flex-center;
+  flex-direction: column;
+  gap: 8px;
+}
+.timer-input {
+  :deep(input) {
+    text-align: center;
+  }
+}
 .timer {
   height: 150px;
   width: 150px;
