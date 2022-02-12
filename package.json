@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src"
   },
   "dependencies": {
     "element-plus": "^1.3.0-beta.5",
@@ -14,9 +15,14 @@
   },
   "devDependencies": {
     "@iconify/json": "^1.1.457",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
     "@vitejs/plugin-vue": "^2.0.0",
+    "eslint": "^8.8.0",
+    "eslint-plugin-vue": "^8.4.1",
     "prettier": "^2.5.1",
     "sass": "^1.47.0",
+    "typescript": "^4.5.5",
     "unplugin-auto-import": "^0.5.11",
     "unplugin-icons": "^0.13.0",
     "unplugin-vue-components": "^0.17.11",

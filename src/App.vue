@@ -45,8 +45,8 @@ function handleDrawerItemClick(path: string): void {
       <div
         v-for="item of routesInfo"
         :key="item.path"
-        @click="handleDrawerItemClick(item.path)"
         :class="['drawer-item', item.path === currentRoute ? 'active' : '']"
+        @click="handleDrawerItemClick(item.path)"
       >
         {{ t(`${item.page}.title`) }}
       </div>

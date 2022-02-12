@@ -74,7 +74,9 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="cls">{{ displayTimer }}</div>
+  <div :class="cls">
+    {{ displayTimer }}
+  </div>
 </template>
 
 <style scoped lang="scss">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Timer from '../components/Timer.vue';
 import NumberSelect from '../components/NumberSelect.vue';
@@ -79,8 +79,7 @@ function handleTimeEnd(): void {
 <template>
   <div class="root">
     <el-select v-model="timerCategory" :disabled="running !== TIMER_STATE.STOP">
-      <el-option v-for="item in timerOptions" :key="item" :label="t(`timer.category.${item}`)" :value="item">
-      </el-option>
+      <el-option v-for="item in timerOptions" :key="item" :label="t(`timer.category.${item}`)" :value="item" />
     </el-select>
     <div class="time-select-wrapper">
       <number-select v-model="minuteValue" :max="180" :width="100" :disabled="running !== TIMER_STATE.STOP" />
