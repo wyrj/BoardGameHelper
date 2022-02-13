@@ -2,6 +2,8 @@ export default {
   common: {
     score: 'Score',
     name: 'Name',
+    minutes: 'Minutes',
+    seconds: 'Seconds',
   },
   home: {
     title: 'Home',

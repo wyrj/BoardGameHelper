@@ -97,7 +97,9 @@ function handleTimeEnd(): void {
       <el-option v-for="item in timerOptions" :key="item" :label="t(`timer.category.${item}`)" :value="item" />
     </el-select>
     <div class="time-select-wrapper">
+      <div>{{ `${t('common.minutes')}:` }}</div>
       <number-select v-model="minuteValue" :max="180" :width="100" :disabled="running !== TIMER_STATE.STOP" />
+      <div>{{ `${t('common.seconds')}:` }}</div>
       <number-select v-model="secondValue" :max="60" :width="100" :disabled="running !== TIMER_STATE.STOP" />
     </div>
     <div class="timer-container">
@@ -139,7 +141,7 @@ function handleTimeEnd(): void {
 }
 
 .time-select-wrapper {
-  display: flex;
+  @extend %flex-center;
   gap: 8px;
 }
 .timer-container {
