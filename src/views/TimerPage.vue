@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUpdate, ref } from 'vue';
+import { computed, onBeforeUpdate, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Timer from '../components/Timer.vue';
 import NumberSelect from '../components/NumberSelect.vue';
@@ -20,6 +20,11 @@ const activeTimerIndex = ref<number>(0);
 const minuteValue = ref<number>(1);
 const secondValue = ref<number>(30);
 let timers: Array<typeof Timer> = [];
+const runningStateMachine = [
+  [null, handlePause, handleStop],
+  [handleContinue, null, handleStop],
+  [handleStart, null, null],
+];
 
 const timerCount = computed<number>(() => {
   return timerCategory.value === TIMER_CATEGORY.DUEL ? 2 : 1;
@@ -27,6 +32,8 @@ const timerCount = computed<number>(() => {
 const totalTime = computed<number>(() => {
   return (minuteValue.value * 60 + secondValue.value) * 1000;
 });
+
+watch(running, (newValue, oldValue) => runningStateMachine[oldValue][newValue]?.());
 
 onBeforeUpdate(() => {
   timers = [];
@@ -39,36 +46,20 @@ function setTimerRef(el: unknown): void {
 }
 
 function handleStart(): void {
-  if (running.value === PLAY_STATE.RUNNING) {
-    return;
-  }
-  running.value = PLAY_STATE.RUNNING;
   timers[0]?.startTimer();
   timers[1]?.resetTimer();
   activeTimerIndex.value = 0;
 }
 
 function handlePause(): void {
-  if (running.value !== PLAY_STATE.RUNNING) {
-    return;
-  }
-  running.value = PLAY_STATE.PAUSE;
   timers[activeTimerIndex.value]?.stopTimer();
 }
 
 function handleContinue(): void {
-  if (running.value !== PLAY_STATE.PAUSE) {
-    return;
-  }
-  running.value = PLAY_STATE.RUNNING;
   timers[activeTimerIndex.value]?.continueTimer();
 }
 
 function handleStop(): void {
-  if (running.value === PLAY_STATE.STOP) {
-    return;
-  }
-  running.value = PLAY_STATE.STOP;
   timers[activeTimerIndex.value]?.stopTimer();
 }
 
@@ -119,13 +110,7 @@ function handleTimeEnd(): void {
         @time_end="handleTimeEnd"
       />
     </div>
-    <play-control
-      :state="running"
-      @start="handleStart"
-      @pause="handlePause"
-      @continue="handleContinue"
-      @stop="handleStop"
-    />
+    <play-control v-model:state="running" />
   </div>
 </template>
 

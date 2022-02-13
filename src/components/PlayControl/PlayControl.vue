@@ -5,24 +5,19 @@ const props = defineProps<{
   state: PLAY_STATE;
 }>();
 const emit = defineEmits<{
-  (e: 'start'): void;
-  (e: 'pause'): void;
-  (e: 'continue'): void;
-  (e: 'stop'): void;
+  (e: 'update:state', state: PLAY_STATE): void;
 }>();
 
 function handlePlayOrPause(): void {
-  if (props.state === PLAY_STATE.PAUSE) {
-    emit('continue');
-  } else if (props.state === PLAY_STATE.STOP) {
-    emit('start');
+  if (props.state === PLAY_STATE.RUNNING) {
+    emit('update:state', PLAY_STATE.PAUSE);
   } else {
-    emit('pause');
+    emit('update:state', PLAY_STATE.RUNNING);
   }
 }
 
 function handleStop(): void {
-  emit('stop');
+  emit('update:state', PLAY_STATE.STOP);
 }
 </script>
 

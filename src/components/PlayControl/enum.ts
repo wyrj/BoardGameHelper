@@ -1,5 +1,5 @@
 export enum PLAY_STATE {
-  RUNNING,
-  PAUSE,
-  STOP,
+  RUNNING = 0,
+  PAUSE = 1,
+  STOP = 2,
 }
