@@ -3,6 +3,7 @@ import { computed, onBeforeUpdate, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Timer from '../components/Timer.vue';
 import NumberSelect from '../components/NumberSelect.vue';
+import { PLAY_STATE, PlayControl } from '../components/PlayControl';
 
 const { t } = useI18n();
 
@@ -11,13 +12,8 @@ enum TIMER_CATEGORY {
   REPEAT = 'repeat',
   DUEL = 'duel',
 }
-enum TIMER_STATE {
-  RUNNING,
-  PAUSE,
-  STOP,
-}
 
-const running = ref<TIMER_STATE>(TIMER_STATE.STOP);
+const running = ref<PLAY_STATE>(PLAY_STATE.STOP);
 const timerCategory = ref<TIMER_CATEGORY>(TIMER_CATEGORY.DUEL);
 const timerOptions = Object.values(TIMER_CATEGORY);
 const activeTimerIndex = ref<number>(0);
@@ -43,34 +39,42 @@ function setTimerRef(el: unknown): void {
 }
 
 function handleStart(): void {
-  if (running.value !== TIMER_STATE.STOP) {
-    handlePause();
+  if (running.value === PLAY_STATE.RUNNING) {
     return;
   }
-  running.value = TIMER_STATE.RUNNING;
+  running.value = PLAY_STATE.RUNNING;
   timers[0]?.startTimer();
   timers[1]?.resetTimer();
   activeTimerIndex.value = 0;
 }
 
 function handlePause(): void {
-  if (running.value === TIMER_STATE.PAUSE) {
-    running.value = TIMER_STATE.RUNNING;
-    timers[activeTimerIndex.value]?.continueTimer();
-  } else if (running.value === TIMER_STATE.RUNNING) {
-    running.value = TIMER_STATE.PAUSE;
-    timers[activeTimerIndex.value]?.stopTimer();
+  if (running.value !== PLAY_STATE.RUNNING) {
+    return;
   }
+  running.value = PLAY_STATE.PAUSE;
+  timers[activeTimerIndex.value]?.stopTimer();
+}
+
+function handleContinue(): void {
+  if (running.value !== PLAY_STATE.PAUSE) {
+    return;
+  }
+  running.value = PLAY_STATE.RUNNING;
+  timers[activeTimerIndex.value]?.continueTimer();
 }
 
 function handleStop(): void {
-  running.value = TIMER_STATE.STOP;
+  if (running.value === PLAY_STATE.STOP) {
+    return;
+  }
+  running.value = PLAY_STATE.STOP;
   timers[activeTimerIndex.value]?.stopTimer();
 }
 
 function handleTimerClick(idx: number): void {
   if (
-    running.value !== TIMER_STATE.RUNNING ||
+    running.value !== PLAY_STATE.RUNNING ||
     idx !== activeTimerIndex.value ||
     timerCategory.value === TIMER_CATEGORY.NORMAL
   ) {
@@ -93,14 +97,14 @@ function handleTimeEnd(): void {
 
 <template>
   <div class="root">
-    <el-select v-model="timerCategory" :disabled="running !== TIMER_STATE.STOP">
+    <el-select v-model="timerCategory" :disabled="running !== PLAY_STATE.STOP">
       <el-option v-for="item in timerOptions" :key="item" :label="t(`timer.category.${item}`)" :value="item" />
     </el-select>
     <div class="time-select-wrapper">
       <div>{{ `${t('common.minutes')}:` }}</div>
-      <number-select v-model="minuteValue" :max="180" :width="100" :disabled="running !== TIMER_STATE.STOP" />
+      <number-select v-model="minuteValue" :max="180" :width="100" :disabled="running !== PLAY_STATE.STOP" />
       <div>{{ `${t('common.seconds')}:` }}</div>
-      <number-select v-model="secondValue" :max="60" :width="100" :disabled="running !== TIMER_STATE.STOP" />
+      <number-select v-model="secondValue" :max="60" :width="100" :disabled="running !== PLAY_STATE.STOP" />
     </div>
     <div class="timer-container">
       <timer
@@ -108,26 +112,20 @@ function handleTimeEnd(): void {
         :key="idx"
         :ref="setTimerRef"
         :disabled="activeTimerIndex !== idx - 1"
-        :editable="running === TIMER_STATE.STOP"
+        :editable="running === PLAY_STATE.STOP"
         :total-time="totalTime"
         :show-name="timerCount > 1"
         @click="handleTimerClick(idx - 1)"
         @time_end="handleTimeEnd"
       />
     </div>
-    <div>
-      <el-button @click="handleStart">
-        <el-icon>
-          <i-ion-pause v-if="running === TIMER_STATE.RUNNING" />
-          <i-ion-play v-else />
-        </el-icon>
-      </el-button>
-      <el-button :disabled="running === TIMER_STATE.STOP" @click="handleStop">
-        <el-icon>
-          <i-ion-stop />
-        </el-icon>
-      </el-button>
-    </div>
+    <play-control
+      :state="running"
+      @start="handleStart"
+      @pause="handlePause"
+      @continue="handleContinue"
+      @stop="handleStop"
+    />
   </div>
 </template>
 
