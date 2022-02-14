@@ -3,6 +3,7 @@ import { PLAY_STATE } from './enum';
 
 const props = defineProps<{
   state: PLAY_STATE;
+  canPause: boolean;
 }>();
 const emit = defineEmits<{
   (e: 'update:state', state: PLAY_STATE): void;
@@ -23,9 +24,9 @@ function handleStop(): void {
 
 <template>
   <div>
-    <el-button @click="handlePlayOrPause">
+    <el-button :disabled="props.state !== PLAY_STATE.STOP && props.canPause === false" @click="handlePlayOrPause">
       <el-icon>
-        <i-ion-pause v-if="props.state === PLAY_STATE.RUNNING" />
+        <i-ion-pause v-if="props.state === PLAY_STATE.RUNNING && props.canPause === true" />
         <i-ion-play v-else />
       </el-icon>
     </el-button>

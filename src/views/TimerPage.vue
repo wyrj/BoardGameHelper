@@ -110,7 +110,7 @@ function handleTimeEnd(): void {
         @time_end="handleTimeEnd"
       />
     </div>
-    <play-control v-model:state="running" />
+    <play-control v-model:state="running" can-pause />
   </div>
 </template>
 
