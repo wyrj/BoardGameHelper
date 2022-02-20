@@ -24,22 +24,20 @@ const enableMordred = ref(true);
 const enableOberon = ref(true);
 const delay = ref(5);
 const playList: Array<HTMLAudioElement | null> = [];
-let currentTag: HTMLAudioElement | null = null;
-const audioRecords: Record<string, { tag: HTMLAudioElement | null; url: string }> = {
-  all: { tag: null, url: audioAllUrl },
-  except: { tag: null, url: audioExceptUrl },
-  and: { tag: null, url: audioAndUrl },
-  red: { tag: null, url: audioRedUrl },
-  open: { tag: null, url: audioOpenUrl },
-  close: { tag: null, url: audioCloseUrl },
-  raise: { tag: null, url: audioRaiseUrl },
-  putdown: { tag: null, url: audioPutdownUrl },
-  mordred: { tag: null, url: audioMordredUrl },
-  merlin: { tag: null, url: audioMerlinUrl },
-  morgana: { tag: null, url: audioMorganaUrl },
-  oberon: { tag: null, url: audioOberonUrl },
-  percival: { tag: null, url: audioPercivalUrl },
-};
+let currentAudio: HTMLAudioElement | null = null;
+const allAudio = createAudio(audioAllUrl);
+const exceptAudio = createAudio(audioExceptUrl);
+const andAudio = createAudio(audioAndUrl);
+const redAudio = createAudio(audioRedUrl);
+const openAudio = createAudio(audioOpenUrl);
+const closeAudio = createAudio(audioCloseUrl);
+const raiseAudio = createAudio(audioRaiseUrl);
+const putdownAudio = createAudio(audioPutdownUrl);
+const mordredAudio = createAudio(audioMordredUrl);
+const merlinAudio = createAudio(audioMerlinUrl);
+const morganaAudio = createAudio(audioMorganaUrl);
+const oberonAudio = createAudio(audioOberonUrl);
+const percivalAudio = createAudio(audioPercivalUrl);
 
 watch(running, () => {
   if (running.value === PLAY_STATE.RUNNING) {
@@ -51,67 +49,68 @@ watch(running, () => {
 
 onBeforeUnmount(() => handleStop());
 
+function createAudio(url: string): HTMLAudioElement {
+  const audio = new Audio(url);
+  audio.preload = 'auto';
+  return audio;
+}
+
 async function play(): Promise<void> {
-  for (const el of playList) {
-    currentTag = el;
-    if (!el) {
+  for (const audio of playList) {
+    currentAudio = audio;
+    if (!audio) {
       await new Promise((resolve) => setTimeout(resolve, delay.value * 1000));
     } else {
       await new Promise((resolve) => {
-        el.addEventListener('pause', resolve);
-        el.play();
+        audio.addEventListener('pause', resolve);
+        audio.currentTime = 0;
+        audio.play();
       });
-      el.currentTime = 0;
     }
   }
   running.value = PLAY_STATE.STOP;
 }
 
 function handleStart(): void {
-  const all = audioRecords.all.tag;
-  const except = audioRecords.except.tag;
-  const and = audioRecords.and.tag;
-  const red = audioRecords.red.tag;
-  const open = audioRecords.open.tag;
-  const close = audioRecords.close.tag;
-  const raise = audioRecords.raise.tag;
-  const putdown = audioRecords.putdown.tag;
-  const mordred = audioRecords.mordred.tag;
-  const merlin = audioRecords.merlin.tag;
-  const morgana = audioRecords.morgana.tag;
-  const oberon = audioRecords.oberon.tag;
-  const percival = audioRecords.percival.tag;
-  playList.push(all, close, red);
+  playList.push(allAudio, closeAudio, redAudio);
   if (enableOberon.value) {
-    playList.push(except, oberon);
+    playList.push(exceptAudio, oberonAudio);
   }
-  playList.push(open, null, red, close, red);
+  playList.push(openAudio, null, redAudio, closeAudio, redAudio);
   if (enableMordred.value) {
-    playList.push(except, mordred);
+    playList.push(exceptAudio, mordredAudio);
   }
-  playList.push(raise, merlin, open, null, merlin, close, red, putdown);
+  playList.push(raiseAudio, merlinAudio, openAudio, null, merlinAudio, closeAudio, redAudio, putdownAudio);
   if (enablePercivalAndMorgana.value) {
-    playList.push(merlin, and, morgana, raise, percival, open, null, percival, close, merlin, and, morgana, close);
+    playList.push(
+      merlinAudio,
+      andAudio,
+      morganaAudio,
+      raiseAudio,
+      percivalAudio,
+      openAudio,
+      null,
+      percivalAudio,
+      closeAudio,
+      merlinAudio,
+      andAudio,
+      morganaAudio,
+      closeAudio,
+    );
   }
-  playList.push(all, open);
+  playList.push(allAudio, openAudio);
   play();
 }
 
 function handleStop(): void {
   playList.length = 0;
-  if (currentTag) {
-    currentTag.pause();
+  if (currentAudio) {
+    currentAudio.pause();
   }
 }
 </script>
 
 <template>
-  <audio
-    v-for="[key, item] of Object.entries(audioRecords)"
-    :key="key"
-    :ref="(el) => (audioRecords[key].tag = el as HTMLAudioElement)"
-    :src="item.url"
-  />
   <div>
     <el-checkbox v-model="enablePercivalAndMorgana" :label="`${t('avalon.percival')} & ${t('avalon.morgana')}`" />
     <el-checkbox v-model="enableMordred" :label="t('avalon.mordred')" />
