@@ -40,4 +40,12 @@ export default {
       duel: '對決',
     },
   },
+  avalon: {
+    title: '阿瓦隆',
+    percival: '派西維爾',
+    morgana: '莫甘娜',
+    mordred: '莫德雷德',
+    oberon: '奧伯倫',
+    open_eye_time: '張開眼睛間隔({0})',
+  },
 };

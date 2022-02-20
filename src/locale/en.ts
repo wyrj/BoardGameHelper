@@ -386,4 +386,12 @@ export default {
       duel: 'Duel',
     },
   },
+  avalon: {
+    title: 'Avalon',
+    percival: 'Percival',
+    morgana: 'Morgana',
+    mordred: 'Mordred',
+    oberon: 'Oberon',
+    open_eye_time: 'Open Eyes Interval({0})',
+  },
 };
