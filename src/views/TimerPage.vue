@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeUpdate, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import Timer from '../components/Timer.vue';
-import NumberSelect from '../components/NumberSelect.vue';
-import { PLAY_STATE, PlayControl } from '../components/PlayControl';
+import Timer from '~@/components/Timer.vue';
+import NumberSelect from '~@/components/NumberSelect.vue';
+import { PLAY_STATE, PlayControl } from '~@/components/PlayControl';
 
 const { t } = useI18n();
 
