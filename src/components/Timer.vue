@@ -68,7 +68,7 @@ function startTimer(): void {
   continueTimer();
 }
 
-onBeforeUnmount(() => stopTimer);
+onBeforeUnmount(() => stopTimer());
 
 defineExpose({
   startTimer,

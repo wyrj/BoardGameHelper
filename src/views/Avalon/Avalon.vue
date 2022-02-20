@@ -49,7 +49,7 @@ watch(running, () => {
   }
 });
 
-onBeforeUnmount(() => handleStop);
+onBeforeUnmount(() => handleStop());
 
 async function play(): Promise<void> {
   for (const el of playList) {
