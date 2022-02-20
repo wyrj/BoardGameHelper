@@ -25,6 +25,7 @@ const enableOberon = ref(true);
 const delay = ref(5);
 const playList: Array<HTMLAudioElement | null> = [];
 let currentAudio: HTMLAudioElement | null = null;
+let currentReject: (() => void) | null = null;
 const allAudio = createAudio(audioAllUrl);
 const exceptAudio = createAudio(audioExceptUrl);
 const andAudio = createAudio(audioAndUrl);
@@ -59,10 +60,17 @@ async function play(): Promise<void> {
   for (const audio of playList) {
     currentAudio = audio;
     if (!audio) {
-      await new Promise((resolve) => setTimeout(resolve, delay.value * 1000));
+      await new Promise((resolve, reject) => {
+        currentReject = reject;
+        setTimeout(resolve, delay.value * 1000);
+      });
     } else {
-      await new Promise((resolve) => {
-        audio.addEventListener('pause', resolve);
+      await new Promise((resolve, reject) => {
+        audio.addEventListener('ended', resolve, { once: true });
+        currentReject = () => {
+          audio.removeEventListener('ended', resolve);
+          reject();
+        };
         audio.currentTime = 0;
         audio.play();
       });
@@ -104,9 +112,8 @@ function handleStart(): void {
 
 function handleStop(): void {
   playList.length = 0;
-  if (currentAudio) {
-    currentAudio.pause();
-  }
+  currentAudio?.pause();
+  currentReject?.();
 }
 </script>
 
