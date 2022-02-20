@@ -1,5 +1,8 @@
 {
   "name": "boardgamehelper",
+  "repository": "git@github.com:wyrj/BoardGameHelper.git",
+  "author": "wyrj <yrj0103@gmail.com>",
+  "license": "MIT",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
