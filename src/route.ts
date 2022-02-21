@@ -4,6 +4,7 @@ import AgricolaPage from './views/Agricola.vue';
 import SmallWorldPage from './views/SmallWorld.vue';
 import TimerPage from './views/TimerPage.vue';
 import { AvalonPage } from './views/Avalon';
+import { StartingPage } from './views/Starting';
 
 import type { ComponentOptions } from 'vue';
 
@@ -15,6 +16,7 @@ type HelperInfo = {
 
 export const routesInfo: HelperInfo[] = [
   { path: '/', page: 'home', component: DicePage },
+  { path: '/starting', page: 'starting', component: StartingPage },
   { path: '/agricola', page: 'agricola', component: AgricolaPage },
   { path: '/small_world', page: 'smallworld', component: SmallWorldPage },
   { path: '/timer', page: 'timer', component: TimerPage },

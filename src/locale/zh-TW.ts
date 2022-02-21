@@ -48,4 +48,8 @@ export default {
     oberon: '奧伯倫',
     open_eye_time: '張開眼睛間隔({0})',
   },
+  starting: {
+    title: '起始玩家',
+    spin: '旋轉',
+  },
 };

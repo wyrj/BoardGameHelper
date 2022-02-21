@@ -394,4 +394,8 @@ export default {
     oberon: 'Oberon',
     open_eye_time: 'Open Eyes Interval({0})',
   },
+  starting: {
+    title: 'Starting Player',
+    spin: 'Spin',
+  },
 };
