@@ -51,5 +51,7 @@ export default {
   starting: {
     title: '起始玩家',
     spin: '旋轉',
+    touch: '觸控',
+    touch_here: '按這裡',
   },
 };

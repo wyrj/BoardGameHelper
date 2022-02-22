@@ -397,5 +397,7 @@ export default {
   starting: {
     title: 'Starting Player',
     spin: 'Spin',
+    touch: 'Touch',
+    touch_here: 'Touch Here',
   },
 };

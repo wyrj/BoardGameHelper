@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -18,6 +18,8 @@ const running = ref(false);
 watch(running, (val) => {
   emit('running', val);
 });
+
+onBeforeUnmount(() => stopTimer());
 
 function stopTimer(): void {
   if (timer.value) {
