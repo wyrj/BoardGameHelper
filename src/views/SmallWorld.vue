@@ -78,6 +78,7 @@ const filteredAbility = computed<string[]>(() => {
   max-width: 768px;
   margin: auto;
 }
+
 .search-icon {
   align-self: center;
 }
@@ -97,6 +98,7 @@ const filteredAbility = computed<string[]>(() => {
 
   .collapse {
     --el-collapse-border-color: transparent;
+
     text-align: start;
   }
 }

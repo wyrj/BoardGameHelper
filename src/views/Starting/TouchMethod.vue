@@ -98,10 +98,11 @@ function handleTouch(e: TouchEvent): void {
 </template>
 
 <style scoped lang="scss">
-@use '~@/styles/utils';
+@use "~@/styles/utils";
 
 .touch-container {
   @extend %flex-center;
+
   height: 100%;
   width: 100%;
   font-size: 48px;

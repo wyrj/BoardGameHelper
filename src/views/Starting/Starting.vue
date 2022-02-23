@@ -55,10 +55,11 @@ function handleRunning(running: boolean): void {
 </template>
 
 <style scoped lang="scss">
-@use '~@/styles/utils';
+@use "~@/styles/utils";
 
 .root {
   @extend %flex-center;
+
   display: flex;
   align-items: center;
   justify-content: start;
@@ -69,6 +70,7 @@ function handleRunning(running: boolean): void {
 
 .setting-wrapper {
   @extend %flex-center;
+
   gap: 8px;
 }
 

@@ -136,20 +136,24 @@ function handleTimeEnd(): void {
 </template>
 
 <style scoped lang="scss">
-@use '../styles/utils.scss';
+@use "../styles/utils.scss";
 
 .root {
   @extend %flex-center;
+
   flex-direction: column;
   gap: 8px;
 }
 
 .time-select-wrapper {
   @extend %flex-center;
+
   gap: 8px;
 }
+
 .timer-container {
   @extend %flex-center;
+
   gap: 8px;
 }
 </style>
