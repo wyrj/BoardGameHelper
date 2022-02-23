@@ -43,8 +43,8 @@ function stopTimer(): void {
 
 function getPointStyle(touch: Touch): CSSProperties {
   return {
-    left: `${touch.clientX - 75}px`,
-    top: `${touch.clientY - 75}px`,
+    left: `${touch.clientX}px`,
+    top: `${touch.clientY}px`,
   };
 }
 
@@ -113,17 +113,18 @@ function handleTouch(e: TouchEvent): void {
 
 .point {
   position: fixed;
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
   background-color: var(--el-color-primary-light-6);
+  transform: translate(-50%, -50%);
 
   &.picking {
     background-color: var(--el-color-primary-light-3);
   }
 
   &.picked {
-    background-color: var(--el-color-primary);
+    background-color: var(--el-color-success);
   }
 }
 </style>
