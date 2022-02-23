@@ -94,17 +94,21 @@ defineExpose({
 </template>
 
 <style scoped lang="scss">
-@use '../styles/utils.scss';
+@use "../styles/utils.scss";
+
 .root {
   @extend %flex-center;
+
   flex-direction: column;
   gap: 8px;
 }
+
 .timer-input {
   :deep(input) {
     text-align: center;
   }
 }
+
 .timer {
   height: 150px;
   width: 150px;
@@ -115,7 +119,7 @@ defineExpose({
   border-radius: 50%;
   box-sizing: border-box;
   font-size: 24px;
-  font-family: Consolas;
+  font-family: Consolas, monospace;
   background-color: var(--el-color-primary-light-3);
 }
 
