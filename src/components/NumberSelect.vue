@@ -22,7 +22,14 @@ watch(currValue, () => {
 </script>
 
 <template>
-  <el-select v-model="currValue" :style="style">
-    <el-option v-for="v of Array.from({ length: props.max }, (_, idx) => idx)" :key="v" :value="v" />
+  <el-select
+    v-model="currValue"
+    :style="style"
+  >
+    <el-option
+      v-for="v of Array.from({ length: props.max }, (_, idx) => idx)"
+      :key="v"
+      :value="v"
+    />
   </el-select>
 </template>

@@ -25,14 +25,25 @@ function handleDrawerItemClick(path: string): void {
   <el-container class="container">
     <el-header class="header">
       <div class="header-left">
-        <el-icon class="icon" size="30px" @click="drawer = !drawer">
+        <el-icon
+          class="icon"
+          size="30px"
+          @click="drawer = !drawer"
+        >
           <i-ion-menu-sharp />
         </el-icon>
         <span class="title">{{ title }}</span>
       </div>
       <div>
-        <a class="icon-link" href="https://github.com/wyrj/BoardGameHelper" target="_blank">
-          <el-icon class="icon" size="30px">
+        <a
+          class="icon-link"
+          href="https://github.com/wyrj/BoardGameHelper"
+          target="_blank"
+        >
+          <el-icon
+            class="icon"
+            size="30px"
+          >
             <i-ion-logo-github />
           </el-icon>
         </a>
@@ -41,7 +52,13 @@ function handleDrawerItemClick(path: string): void {
     <el-main>
       <router-view />
     </el-main>
-    <el-drawer v-model="drawer" direction="ltr" custom-class="drawer" :show-close="false" :with-header="false">
+    <el-drawer
+      v-model="drawer"
+      direction="ltr"
+      custom-class="drawer"
+      :show-close="false"
+      :with-header="false"
+    >
       <div
         v-for="item of routesInfo"
         :key="item.path"

@@ -23,8 +23,17 @@ function handleRunning(running: boolean): void {
 <template>
   <div class="root">
     <div class="setting-wrapper">
-      <el-input-number v-model="playerCount" :min="2" :precision="0" step-strictly :disabled="!editable" />
-      <el-select v-model="method" :disabled="!editable">
+      <el-input-number
+        v-model="playerCount"
+        :min="2"
+        :precision="0"
+        step-strictly
+        :disabled="!editable"
+      />
+      <el-select
+        v-model="method"
+        :disabled="!editable"
+      >
         <el-option
           v-for="item in Object.values(PICK_METHOD)"
           :key="item"
@@ -33,8 +42,15 @@ function handleRunning(running: boolean): void {
         />
       </el-select>
     </div>
-    <spin-method-vue v-if="method === PICK_METHOD.SPIN" :player-count="playerCount" @running="handleRunning" />
-    <touch-method-vue v-else :player-count="playerCount" />
+    <spin-method-vue
+      v-if="method === PICK_METHOD.SPIN"
+      :player-count="playerCount"
+      @running="handleRunning"
+    />
+    <touch-method-vue
+      v-else
+      :player-count="playerCount"
+    />
   </div>
 </template>
 

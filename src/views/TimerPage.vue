@@ -88,14 +88,32 @@ function handleTimeEnd(): void {
 
 <template>
   <div class="root">
-    <el-select v-model="timerCategory" :disabled="running !== PLAY_STATE.STOP">
-      <el-option v-for="item in timerOptions" :key="item" :label="t(`timer.category.${item}`)" :value="item" />
+    <el-select
+      v-model="timerCategory"
+      :disabled="running !== PLAY_STATE.STOP"
+    >
+      <el-option
+        v-for="item in timerOptions"
+        :key="item"
+        :label="t(`timer.category.${item}`)"
+        :value="item"
+      />
     </el-select>
     <div class="time-select-wrapper">
       <div>{{ `${t('common.minutes')}:` }}</div>
-      <number-select v-model="minuteValue" :max="180" :width="100" :disabled="running !== PLAY_STATE.STOP" />
+      <number-select
+        v-model="minuteValue"
+        :max="180"
+        :width="100"
+        :disabled="running !== PLAY_STATE.STOP"
+      />
       <div>{{ `${t('common.seconds')}:` }}</div>
-      <number-select v-model="secondValue" :max="60" :width="100" :disabled="running !== PLAY_STATE.STOP" />
+      <number-select
+        v-model="secondValue"
+        :max="60"
+        :width="100"
+        :disabled="running !== PLAY_STATE.STOP"
+      />
     </div>
     <div class="timer-container">
       <timer
@@ -110,7 +128,10 @@ function handleTimeEnd(): void {
         @time_end="handleTimeEnd"
       />
     </div>
-    <play-control v-model:state="running" can-pause />
+    <play-control
+      v-model:state="running"
+      can-pause
+    />
   </div>
 </template>
 

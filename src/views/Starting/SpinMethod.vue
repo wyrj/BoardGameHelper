@@ -56,7 +56,10 @@ async function handlePick(): Promise<void> {
       {{ idx }}
     </div>
   </div>
-  <el-button :disabled="running" @click="handlePick">
+  <el-button
+    :disabled="running"
+    @click="handlePick"
+  >
     {{ t('starting.spin') }}
   </el-button>
 </template>

@@ -13,6 +13,6 @@ module.exports = {
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
-    'vue/max-attributes-per-line': 'off',
+    semi: ['error', 'always'],
   },
 };

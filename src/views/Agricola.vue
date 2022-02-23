@@ -78,17 +78,31 @@ const score = computed<number>(() => {
       {{ `${t('common.score')}: ${score}` }}
     </div>
     <div class="counter-wrapper">
-      <template v-for="item in [...dynamicCount, ...staticCount]" :key="item.title">
+      <template
+        v-for="item in [...dynamicCount, ...staticCount]"
+        :key="item.title"
+      >
         <div class="title">
           {{ item.title }}
         </div>
-        <el-input-number v-model="item.count" :min="0" :step="1" step-strictly class="input-number" />
+        <el-input-number
+          v-model="item.count"
+          :min="0"
+          :step="1"
+          step-strictly
+          class="input-number"
+        />
       </template>
       <div class="title">
         {{ t('agricola.room_type') }}
       </div>
       <el-select v-model="roomValue">
-        <el-option v-for="item in roomOptions" :key="item" :label="t(`agricola.${item}`)" :value="item" />
+        <el-option
+          v-for="item in roomOptions"
+          :key="item"
+          :label="t(`agricola.${item}`)"
+          :value="item"
+        />
       </el-select>
     </div>
   </div>

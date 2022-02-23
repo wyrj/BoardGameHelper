@@ -52,7 +52,11 @@ async function throwDice(): Promise<void> {
 
 <template>
   <div class="wrapper">
-    <div class="dice-wrapper" :style="diceStyle" @click="throwDice">
+    <div
+      class="dice-wrapper"
+      :style="diceStyle"
+      @click="throwDice"
+    >
       <div class="surface front">
         <div class="point red center" />
       </div>

@@ -119,15 +119,31 @@ function handleStop(): void {
 
 <template>
   <div>
-    <el-checkbox v-model="enablePercivalAndMorgana" :label="`${t('avalon.percival')} & ${t('avalon.morgana')}`" />
-    <el-checkbox v-model="enableMordred" :label="t('avalon.mordred')" />
-    <el-checkbox v-model="enableOberon" :label="t('avalon.oberon')" />
+    <el-checkbox
+      v-model="enablePercivalAndMorgana"
+      :label="`${t('avalon.percival')} & ${t('avalon.morgana')}`"
+    />
+    <el-checkbox
+      v-model="enableMordred"
+      :label="t('avalon.mordred')"
+    />
+    <el-checkbox
+      v-model="enableOberon"
+      :label="t('avalon.oberon')"
+    />
   </div>
   <div class="flex">
     <div>{{ t('avalon.open_eye_time', [`${delay}${t('common.seconds')}`]) }}</div>
-    <el-slider v-model="delay" :min="1" :max="10" />
+    <el-slider
+      v-model="delay"
+      :min="1"
+      :max="10"
+    />
   </div>
-  <play-control v-model:state="running" :can-pause="false" />
+  <play-control
+    v-model:state="running"
+    :can-pause="false"
+  />
 </template>
 
 <style scoped lang="scss">

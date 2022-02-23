@@ -24,9 +24,15 @@ const filteredAbility = computed<string[]>(() => {
 
 <template>
   <div class="root">
-    <el-input v-model="searchingString" size="large">
+    <el-input
+      v-model="searchingString"
+      size="large"
+    >
       <template #prefix>
-        <el-icon class="search-icon" size="14px">
+        <el-icon
+          class="search-icon"
+          size="14px"
+        >
           <i-ion-search />
         </el-icon>
       </template>
