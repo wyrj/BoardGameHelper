@@ -5,6 +5,7 @@ import SmallWorldPage from './views/SmallWorld.vue';
 import TimerPage from './views/TimerPage.vue';
 import { AvalonPage } from './views/Avalon';
 import { StartingPage } from './views/Starting';
+import { SevenWondersPage } from './views/SevenWonders';
 
 import type { ComponentOptions } from 'vue';
 
@@ -21,6 +22,7 @@ export const routesInfo: HelperInfo[] = [
   { path: '/small_world', page: 'smallworld', component: SmallWorldPage },
   { path: '/timer', page: 'timer', component: TimerPage },
   { path: '/avalon', page: 'avalon', component: AvalonPage },
+  { path: '/seven_wonders', page: 'sevenwonders', component: SevenWondersPage },
 ];
 
 const router = createRouter({

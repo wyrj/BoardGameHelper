@@ -400,4 +400,18 @@ export default {
     touch: 'Touch',
     touch_here: 'Touch Here',
   },
+  sevenwonders: {
+    title: 'Seven Wonders',
+    military_conflict: 'Military Conflict',
+    money: 'Money',
+    wonders: 'Wonders Score',
+    civilian: 'Civilian Score (Blue Card)',
+    commercial: 'Commercial Score (Yellow Card)',
+    guild: 'Guild Score (Purple Card)',
+    scientific: {
+      text: 'Scientific (Text)',
+      compass: 'Scientific (Compass)',
+      gear: 'Scientific (Gear)',
+    },
+  },
 };

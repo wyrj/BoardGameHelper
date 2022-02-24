@@ -54,4 +54,18 @@ export default {
     touch: '觸控',
     touch_here: '按這裡',
   },
+  sevenwonders: {
+    title: '七大奇蹟',
+    military_conflict: '軍事衝突',
+    money: '錢',
+    wonders: '奇蹟分數',
+    civilian: '市政分數(藍色卡片)',
+    commercial: '商業分數(黃色卡片)',
+    guild: '公會分數(紫色卡片)',
+    scientific: {
+      text: '科技數量(文字)',
+      compass: '科技數量(圓規)',
+      gear: '科技數量(齒輪)',
+    },
+  },
 };
