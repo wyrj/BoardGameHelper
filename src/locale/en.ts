@@ -402,8 +402,8 @@ export default {
   },
   sevenwonders: {
     title: 'Seven Wonders',
-    military_conflict: 'Military Conflict',
-    money: 'Money',
+    military_conflict: 'Military Score',
+    money: 'Money Score',
     wonders: 'Wonders Score',
     civilian: 'Civilian Score (Blue Card)',
     commercial: 'Commercial Score (Yellow Card)',

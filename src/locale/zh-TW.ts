@@ -56,8 +56,8 @@ export default {
   },
   sevenwonders: {
     title: '七大奇蹟',
-    military_conflict: '軍事衝突',
-    money: '錢',
+    military_conflict: '軍事分數',
+    money: '錢分數',
     wonders: '奇蹟分數',
     civilian: '市政分數(藍色卡片)',
     commercial: '商業分數(黃色卡片)',
