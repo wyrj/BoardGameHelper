@@ -59,6 +59,7 @@ export default {
     military_conflict: '軍事分數',
     money: '錢分數',
     wonders: '奇蹟分數',
+    leaders: '領袖分數',
     civilian: '市政分數(藍色卡片)',
     commercial: '商業分數(黃色卡片)',
     guild: '公會分數(紫色卡片)',

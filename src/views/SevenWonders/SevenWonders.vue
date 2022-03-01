@@ -11,6 +11,7 @@ const scoreType = reactive<COUNT[]>(
     [t('sevenwonders.military_conflict'), 0],
     [t('sevenwonders.money'), 0],
     [t('sevenwonders.wonders'), 0],
+    [t('sevenwonders.leaders'), 0],
     [t('sevenwonders.civilian'), 0],
     [t('sevenwonders.commercial'), 0],
     [t('sevenwonders.guild'), 0],

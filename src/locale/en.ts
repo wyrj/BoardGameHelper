@@ -405,6 +405,7 @@ export default {
     military_conflict: 'Military Score',
     money: 'Money Score',
     wonders: 'Wonders Score',
+    leaders: 'Leader Score',
     civilian: 'Civilian Score (Blue Card)',
     commercial: 'Commercial Score (Yellow Card)',
     guild: 'Guild Score (Purple Card)',
