@@ -75,7 +75,7 @@ function handleDrawerItemClick(path: string): void {
 .container {
   height: 100%;
 
-  :deep .drawer {
+  :deep(.drawer) {
     min-width: 300px;
   }
 }
