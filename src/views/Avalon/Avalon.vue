@@ -147,7 +147,7 @@ function handleStop(): void {
 </template>
 
 <style scoped lang="scss">
-@use "../../styles/utils.scss";
+@use "~@/styles/utils.scss";
 
 .flex {
   @extend %flex-center;

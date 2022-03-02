@@ -94,7 +94,7 @@ defineExpose({
 </template>
 
 <style scoped lang="scss">
-@use "../styles/utils.scss";
+@use "~@/styles/utils.scss";
 
 .root {
   @extend %flex-center;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { default as en } from '../locale/en';
+import { default as en } from '../../locale/en';
 
 const abilityList = Object.keys(en.smallworld.ability);
 const raceList = Object.keys(en.smallworld.race);

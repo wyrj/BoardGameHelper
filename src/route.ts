@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import DicePage from './views/DicePage.vue';
-import AgricolaPage from './views/Agricola.vue';
-import SmallWorldPage from './views/SmallWorld.vue';
-import TimerPage from './views/TimerPage.vue';
+import { AgricolaPage } from './views/Agricola';
+import { SmallWorldPage } from './views/SmallWorld';
+import { TimerPage } from './views/Timer';
 import { AvalonPage } from './views/Avalon';
 import { StartingPage } from './views/Starting';
 import { SevenWondersPage } from './views/SevenWonders';

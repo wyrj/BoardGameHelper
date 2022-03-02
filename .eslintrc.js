@@ -11,6 +11,9 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
+  ignorePatterns: [
+    'components.d.ts',
+  ],
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     semi: ['error', 'always'],

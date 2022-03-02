@@ -1,0 +1,1 @@
+export { default as SmallWorldPage } from './SmallWorld.vue';

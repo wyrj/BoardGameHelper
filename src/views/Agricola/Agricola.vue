@@ -109,7 +109,7 @@ const score = computed<number>(() => {
 </template>
 
 <style scoped lang="scss">
-@use "../styles/utils.scss";
+@use "~@/styles/utils.scss";
 
 .score {
   font-size: 36px;

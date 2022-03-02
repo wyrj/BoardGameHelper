@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeUpdate, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import Timer from '~@/components/Timer.vue';
 import NumberSelect from '~@/components/NumberSelect.vue';
 import { PLAY_STATE, PlayControl } from '~@/components/PlayControl';
+import Timer from './Timer.vue';
 
 const { t } = useI18n();
 
@@ -136,7 +136,7 @@ function handleTimeEnd(): void {
 </template>
 
 <style scoped lang="scss">
-@use "../styles/utils.scss";
+@use "~@/styles/utils.scss";
 
 .root {
   @extend %flex-center;

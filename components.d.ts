@@ -27,8 +27,8 @@ declare module 'vue' {
     IIonStop: typeof import('~icons/ion/stop')['default']
     NumberSelect: typeof import('./src/components/NumberSelect.vue')['default']
     PlayControl: typeof import('./src/components/PlayControl/PlayControl.vue')['default']
-    Timer: typeof import('./src/components/Timer.vue')['default']
+    Timer: typeof import('./src/views/Timer/Timer.vue')['default']
   }
 }
 
-export { };
+export { }
