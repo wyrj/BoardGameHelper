@@ -1,75 +1,12 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { ROOM_TYPE } from './type';
+import { useAgricola } from './useAgricola';
 
 const { t } = useI18n();
-type CountInfo = {
-  title: string;
-  count: number;
-};
-type DynamicCountInfo = CountInfo & {
-  base: number;
-  start: number;
-  step: number;
-};
-type StaticCountInfo = CountInfo & {
-  multiplier: number;
-};
-enum ROOM_TYPE {
-  WOOD = 'wood',
-  CLAY = 'clay',
-  STONE = 'stone',
-}
 
 const roomOptions = Object.values(ROOM_TYPE);
-const roomValue = ref<ROOM_TYPE>(roomOptions[0]);
-watch(roomValue, (value) => {
-  let multiplier = 0;
-  if (value === ROOM_TYPE.CLAY) {
-    multiplier = 1;
-  } else if (value === ROOM_TYPE.STONE) {
-    multiplier = 2;
-  }
-  staticCount[0].multiplier = multiplier;
-});
-
-const dynamicCount = reactive<DynamicCountInfo[]>([
-  { count: 0, base: 1, start: 4, step: 2, title: t('agricola.grain') },
-  { count: 0, base: 1, start: 2, step: 1, title: t('agricola.vegetable') },
-  { count: 0, base: 1, start: 4, step: 2, title: t('agricola.sheep') },
-  { count: 0, base: 1, start: 3, step: 2, title: t('agricola.wild_boar') },
-  { count: 0, base: 1, start: 2, step: 2, title: t('agricola.cattle') },
-  { count: 0, base: 2, start: 3, step: 1, title: t('agricola.field') },
-  { count: 0, base: 1, start: 2, step: 1, title: t('agricola.pasture') },
-  { count: 0, base: 1, start: 2, step: 1, title: t('agricola.stable') },
-]);
-
-const staticCount = reactive<StaticCountInfo[]>([
-  { count: 2, multiplier: 0, title: t('agricola.room') },
-  { count: 2, multiplier: 3, title: t('agricola.family') },
-  { count: 0, multiplier: -1, title: t('agricola.unused') },
-  { count: 0, multiplier: 1, title: t('agricola.card') },
-  { count: 0, multiplier: 1, title: t('agricola.bonus') },
-  { count: 0, multiplier: -3, title: t('agricola.beg') },
-]);
-
-const score = computed<number>(() => {
-  let total = 0;
-  for (const { count, start, step } of dynamicCount) {
-    if (count === 0) {
-      total -= 1;
-    } else if (count < start) {
-      total += 1;
-    } else {
-      total += Math.min(4, Math.floor((count - start) / step) + 2);
-    }
-  }
-  for (const { count, multiplier } of staticCount) {
-    total += count * multiplier;
-  }
-
-  return total;
-});
+const { roomValue, countObject, score } = useAgricola();
 </script>
 
 <template>
@@ -79,14 +16,14 @@ const score = computed<number>(() => {
     </div>
     <div class="counter-wrapper">
       <template
-        v-for="item in [...dynamicCount, ...staticCount]"
-        :key="item.title"
+        v-for="(value, name) in countObject"
+        :key="name"
       >
         <div class="title">
-          {{ item.title }}
+          {{ t(`agricola.${name}`) }}
         </div>
         <el-input-number
-          v-model="item.count"
+          v-model="countObject[name]"
           :min="0"
           :step="1"
           step-strictly
