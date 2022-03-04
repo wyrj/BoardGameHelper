@@ -17,5 +17,6 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     semi: ['error', 'always'],
+    '@typescript-eslint/indent': ['warn', 2],
   },
 };

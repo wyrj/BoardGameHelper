@@ -8,6 +8,7 @@ type DynamicInfo = {
 }
 type StaticInfo = {
   multiplier: number,
+  max?: number,
 }
 
 export function useAgricola() {
@@ -20,10 +21,10 @@ export function useAgricola() {
     [COUNT_KEY.CATTLE, { base: 1, start: 2, step: 2 }],
     [COUNT_KEY.FIELD, { base: 2, start: 3, step: 1 }],
     [COUNT_KEY.PASTURE, { base: 1, start: 2, step: 1 }],
-    [COUNT_KEY.STABLE, { base: 1, start: 2, step: 1 }],
   ];
   const staticCount: Array<[COUNT_KEY, StaticInfo]> = [
-    [COUNT_KEY.FAMILY, { multiplier: 3 }],
+    [COUNT_KEY.STABLE, { multiplier: 1, max: 4 }],
+    [COUNT_KEY.FAMILY, { multiplier: 3, max: 5 }],
     [COUNT_KEY.UNUSED, { multiplier: -1 }],
     [COUNT_KEY.CARD, { multiplier: 1 }],
     [COUNT_KEY.BONUS, { multiplier: 1 }],
@@ -72,9 +73,9 @@ export function useAgricola() {
       [COUNT_KEY.BONUS]: 0,
       [COUNT_KEY.BEG]: 0,
     };
-    for (const [key, { start, step }] of dynamicCount) {
+    for (const [key, { base, start, step }] of dynamicCount) {
       const count = countObject[key];
-      if (count === 0) {
+      if (count < base) {
         result[key] = -1;
       } else if (count < start) {
         result[key] = 1;
@@ -82,9 +83,9 @@ export function useAgricola() {
         result[key] = Math.min(4, Math.floor((count - start) / step) + 2);
       }
     }
-    for (const [key, { multiplier }] of staticCount) {
+    for (const [key, { multiplier, max }] of staticCount) {
       const count = countObject[key];
-      result[key] = count * multiplier;
+      result[key] = Math.min(max ?? Number.POSITIVE_INFINITY, count) * multiplier;
     }
     result[COUNT_KEY.ROOM] = countObject[COUNT_KEY.ROOM] * roomMultiplier.value;
     return result;

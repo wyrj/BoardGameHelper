@@ -6,7 +6,8 @@
     "strict": true,
     "moduleResolution": "node",
     "types": [
-      "unplugin-icons/types/vue"
+      "unplugin-icons/types/vue",
+      "vitest/globals"
     ],
     "baseUrl": ".",
     "paths": {
